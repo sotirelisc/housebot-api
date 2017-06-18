@@ -8,8 +8,16 @@ var express = require('express'),
 mongoose.Promse = global.Promise;
 mongoose.connect('mongodb://housebot:kanieloutis@ds131432.mlab.com:31432/housebot')
 
-app.use(bodyParser.urlencoded({ extended: true}))
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 app.use(bodyParser.json())
+
+app.use(function(req, res) {
+  res.status(404).send({
+    url: req.originalUrl + ' not found'
+  })
+})
 
 var routes = require('./api/routes/houseRoutes')
 routes(app)
