@@ -1,6 +1,18 @@
 var express = require('express'),
   app = express(),
-  port = process.env.PORT || 3000
+  port = process.env.PORT || 3000,
+  mongoose = require('mongoose'),
+  House = require('./api/models/houseModel'),
+  bodyParser = require('body-parser')
+
+mongoose.Promse = global.Promise;
+mongoose.connect('mongodb://housebot:kanieloutis@ds131432.mlab.com:31432/housebot')
+
+app.use(bodyParser.urlencoded({ extended: true}))
+app.use(bodyParser.json())
+
+var routes = require('./api/routes/houseRoutes')
+routes(app)
 
 app.listen(port)
 
