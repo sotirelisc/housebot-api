@@ -5,22 +5,39 @@ var express = require('express'),
   House = require('./api/models/houseModel'),
   bodyParser = require('body-parser')
 
+var morgan = require('morgan')
+var passport = require('passport')
+var config = require('./config/database')
+
 mongoose.Promse = global.Promise;
-mongoose.connect('mongodb://housebot:kanieloutis@ds131432.mlab.com:31432/housebot')
+mongoose.connect(config.database)
 
 app.use(bodyParser.urlencoded({
   extended: true
 }))
 app.use(bodyParser.json())
 
+// Allow CORS
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*")
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+  next()
+})
+
+app.use(passport.initialize())
+
+// Return 404 custom message
 app.use(function(req, res) {
   res.status(404).send({
     url: req.originalUrl + ' not found'
   })
 })
 
-var routes = require('./api/routes/houseRoutes')
-routes(app)
+var houseRoutes = require('./api/routes/houseRoutes')
+var userRoutes = require('./api/routes/userRoutes')
+
+app.use('/api', houseRoutes)
+app.use('/api', userRoutes)
 
 app.listen(port)
 
