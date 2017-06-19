@@ -3,6 +3,7 @@
 var mongoose = require('mongoose'),
   User = mongoose.model('Users')
 var passport = require('passport')
+var config = require('../config/database')
 require('../config/passport')(passport)
 var jwt = require('jsonwebtoken')
 
@@ -10,26 +11,26 @@ exports.sign_up_user = function(req, res) {
   if (!req.body.username || !req.body.password) {
     res.json({
       success: false,
-      msg: 'Please pass username and password.'
-    });
+      message: 'Credentials were not provided.'
+    })
   } else {
     var newUser = new User({
       username: req.body.username,
-      password: req.body.password
-    });
-    // save the user
+      password: req.body.password,
+      email: req.body.email
+    })
     newUser.save(function(err) {
       if (err) {
         return res.json({
           success: false,
-          msg: 'Username already exists.'
-        });
+          message: 'Username already exists.'
+        })
       }
       res.json({
         success: true,
-        msg: 'Successful created new user.'
-      });
-    });
+        message: 'Successfully created new user.'
+      })
+    })
   }
 }
 
@@ -37,31 +38,28 @@ exports.sign_in_user = function(req, res) {
   User.findOne({
     username: req.body.username
   }, function(err, user) {
-    if (err) throw err;
-
+    if (err) throw err
     if (!user) {
       res.send({
         success: false,
-        msg: 'Authentication failed. User not found.'
-      });
+        message: 'Authentication failed.'
+      })
     } else {
-      // check if password matches
       user.comparePassword(req.body.password, function(err, isMatch) {
         if (isMatch && !err) {
-          // if user is found and password is right create a token
-          var token = jwt.sign(user, config.secret);
-          // return the information including token as JSON
+          var token = jwt.sign(user, config.secret)
           res.json({
             success: true,
+            username: user.username,
             token: 'JWT ' + token
-          });
+          })
         } else {
           res.send({
             success: false,
-            msg: 'Authentication failed. Wrong password.'
-          });
+            message: 'Authentication failed.'
+          })
         }
-      });
+      })
     }
-  });
+  })
 }

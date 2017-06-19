@@ -2,14 +2,15 @@ var express = require('express'),
   app = express(),
   port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
-  House = require('./api/models/houseModel'),
+  House = require('./api/models/houseModel')
+  User = require('./api/models/userModel'),
   bodyParser = require('body-parser')
 
 var morgan = require('morgan')
 var passport = require('passport')
-var config = require('./config/database')
+var config = require('./api/config/database')
 
-mongoose.Promse = global.Promise;
+mongoose.Promise = global.Promise;
 mongoose.connect(config.database)
 
 app.use(bodyParser.urlencoded({
@@ -26,18 +27,22 @@ app.use(function(req, res, next) {
 
 app.use(passport.initialize())
 
+// Index route
+app.get('/', function (req, res) {
+  res.send('Nothing here!')
+})
+
+var house_routes = require('./api/routes/houseRoutes')
+house_routes(app)
+var user_routes = require('./api/routes/userRoutes')
+user_routes(app)
+
 // Return 404 custom message
 app.use(function(req, res) {
   res.status(404).send({
     url: req.originalUrl + ' not found'
   })
 })
-
-var houseRoutes = require('./api/routes/houseRoutes')
-var userRoutes = require('./api/routes/userRoutes')
-
-app.use('/api', houseRoutes)
-app.use('/api', userRoutes)
 
 app.listen(port)
 
