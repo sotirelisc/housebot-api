@@ -7,6 +7,24 @@ var config = require('../config/database')
 require('../config/passport')(passport)
 var jwt = require('jsonwebtoken')
 
+exports.show_houses = function(req, res) {
+  User.findById(req.params.userId, function(err, user) {
+    if (err) {
+      res.send(err)
+    }
+    res.json(user.houses)
+  })
+}
+
+exports.show_user = function(req, res) {
+  User.findById(req.params.userId, function(err, user) {
+    if (err) {
+      res.send(err)
+    }
+    res.json(user.username)
+  })
+}
+
 exports.sign_up_user = function(req, res) {
   if (!req.body.username || !req.body.password) {
     res.json({

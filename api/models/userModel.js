@@ -31,7 +31,11 @@ var UserSchema = new Schema({
       enum: ['regular', 'owner']
     }],
     default: ['regular']
-  }
+  },
+  houses: [{
+    type: Schema.Types.ObjectId,
+    ref: 'House'
+  }]
 })
 
 UserSchema.pre('save', function(next) {
@@ -39,13 +43,13 @@ UserSchema.pre('save', function(next) {
   if (this.isModified('password') || this.isNew) {
     bcrypt.genSalt(10, function(err, salt) {
       if (err) {
-        return next(err);
+        return next(err)
       }
       bcrypt.hash(user.password, salt, null, function(err, hash) {
         if (err) {
-          return next(err);
+          return next(err)
         }
-        user.password = hash;
+        user.password = hash
         next()
       })
     })

@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
+var User = require('../models/userModel')
 
 var HouseSchema = new Schema({
   short_description: {
@@ -38,6 +39,10 @@ var HouseSchema = new Schema({
       type: String,
       enum: ['rent', 'buy']
     }]
+  },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   }
 })
 
