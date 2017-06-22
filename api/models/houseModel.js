@@ -39,6 +39,10 @@ var HouseSchema = new Schema({
       enum: ['rent', 'buy']
     }]
   }
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }
 })
 
 module.exports = mongoose.model('Houses', HouseSchema)
