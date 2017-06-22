@@ -8,4 +8,10 @@ module.exports = function(app) {
 
   app.route('/users/signin')
     .post(user.sign_in_user)
+
+  app.route('/users/:userId')
+    .get(user.show_user)
+
+  app.route('/users/:userId/houses')
+    .get(user.show_houses)
 }

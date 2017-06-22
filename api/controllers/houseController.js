@@ -1,7 +1,8 @@
 'use strict'
 
 var mongoose = require('mongoose'),
-  House = mongoose.model('Houses')
+  House = mongoose.model('Houses'),
+  User = mongoose.model('Users')
 
 exports.list_all_houses = function(req, res) {
   House.find({}, function(err, house) {
@@ -14,11 +15,21 @@ exports.list_all_houses = function(req, res) {
 
 exports.create_a_house = function(req, res) {
   var new_house = new House(req.body)
+  // Assign house owner
+  new_house.owner = req.user._id
   new_house.save(function(err, house) {
     if (err) {
       res.send(err)
     }
-    res.json(house)
+    // Find owner (User) and append new_house id to its array
+    User.findById(req.user._id, function(err, user) {
+      if (err) {
+        res.send(err)
+      }
+      user.houses.push(house._id)
+      user.save()
+      res.json(house)
+    })
   })
 }
 

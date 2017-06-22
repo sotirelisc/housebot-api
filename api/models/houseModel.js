@@ -38,7 +38,7 @@ var HouseSchema = new Schema({
       type: String,
       enum: ['rent', 'buy']
     }]
-  }
+  },
   owner: {
     type: Schema.Types.ObjectId,
     ref: 'User'

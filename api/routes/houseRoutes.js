@@ -13,6 +13,7 @@ module.exports = function(app) {
       function(req, res) {
         var token = getToken(req.headers)
         if (token) {
+          console.log("Creates a house: " + req.user)
           house.create_a_house(req, res)
         } else {
           return res.status(403).send({
