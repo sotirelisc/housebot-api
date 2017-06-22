@@ -28,6 +28,9 @@ module.exports = function(app) {
     .get(house.read_a_house)
     .put(house.update_a_house)
     .delete(house.delete_a_house)
+
+  app.route(versioning.url + '/houses/:houseId/owner')
+    .get(house.get_owner)
 }
 
 // JWT approach of getting token from request headers

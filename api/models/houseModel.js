@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
+var User = require('../models/userModel')
 
 var HouseSchema = new Schema({
   short_description: {

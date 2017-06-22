@@ -4,6 +4,18 @@ var mongoose = require('mongoose'),
   House = mongoose.model('Houses'),
   User = mongoose.model('Users')
 
+exports.get_owner = function(req, res) {
+  House.findOne({
+    _id: req.params.houseId
+  }).populate('owner', 'username').exec(function(err, house) {
+    if (err) {
+      res.send(err)
+      return handleError(err)
+    }
+    res.send(house + house.owner.username)
+  })
+}
+
 exports.list_all_houses = function(req, res) {
   House.find({}, function(err, house) {
     if (err) {
