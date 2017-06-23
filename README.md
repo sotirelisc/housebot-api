@@ -33,11 +33,12 @@ Sydomus was built using Parse as its BaaS. HouseBot uses this new, NodeJS & Mong
 
 ## Testing
 
-Currently, test coverage is zero, but tests are a priority.
+Currently, test coverage is low, but tests are a priority.
+Run tests with ```npm test```
 
 ## Contributing
 
 - Fork repo
 - Create a new branch using ```git checkout -b <name>```
-- Push your commit there
+- Push your commit there (ensure tests are green)
 - Create a pull request
