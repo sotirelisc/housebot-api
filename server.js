@@ -13,6 +13,8 @@ var config = require('./api/config/database')
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database)
 
+app.use(morgan('combined'))
+
 app.use(bodyParser.urlencoded({
   extended: true
 }))
@@ -47,3 +49,6 @@ app.use(function(req, res) {
 app.listen(port)
 
 console.log('HouseBot API server started on: ' + port)
+
+// Export server for testing
+module.exports = app;
