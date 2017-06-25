@@ -10,9 +10,7 @@ chai.use(chaiHttp)
 
 // Parent block
 describe('Houses', () => {
-  /*
-   * Test the /GET route
-   */
+
   describe('/GET api/v1/houses', () => {
     it('should GET all houses', (done) => {
       chai.request(server)
@@ -20,6 +18,22 @@ describe('Houses', () => {
         .end((err, res) => {
           res.should.have.status(200)
           res.body.should.be.a('array')
+          done()
+        })
+    })
+  })
+
+  describe('/GET api/v1/houses/:houseId', () => {
+    it('should GET a house', (done) => {
+      chai.request(server)
+        .get('/api/v1/houses/594fdbf2579f162b199576eb')
+        .end((err, res) => {
+          res.should.have.status(200)
+          res.body.should.be.a('object')
+          res.body.should.have.property('short_description')
+          res.body.should.have.property('long_description')
+          res.body.should.have.property('price')
+          res.body.should.have.property('owner')
           done()
         })
     })
