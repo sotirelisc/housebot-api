@@ -108,6 +108,106 @@ describe('Users', () => {
           })
       })
     })
+
+    it('should not POST (sign-up) a User with same username', (done) => {
+      let user = {
+        username: "tester",
+        password: "prisonbreak",
+        email: "tester@housebot.io"
+      }
+      let second_user = {
+        username: "tester",
+        password: "prisonbreak",
+        email: "tester@housebot.ai"
+      }
+      // First, delete test User if exists
+      User.remove({
+        username: "tester"
+      }, function(err) {
+        // Sign-up default test User
+        chai.request(server)
+          .post('/api/v1/users/signup')
+          .send(user)
+          .end((err, res) => {
+            // Sign-up second User with same username
+            chai.request(server)
+              .post('/api/v1/users/signup')
+              .send(second_user)
+              .end((err, res) => {
+                res.body.should.be.a('object')
+                res.body.should.have.property('success').be.false
+                done()
+              })
+          })
+      })
+    })
+
+    it('should POST (sign-in) a User with valid credentials', (done) => {
+      let user = {
+        username: "tester",
+        password: "prisonbreak",
+        email: "tester@housebot.io"
+      }
+      // First, delete test User if exists
+      User.remove({
+        username: "tester"
+      }, function(err) {
+        // Sign-up test User
+        chai.request(server)
+          .post('/api/v1/users/signup')
+          .send(user)
+          .end((err, res) => {
+            let credentials = {
+              username: "tester",
+              password: "prisonbreak"
+            }
+            // Sign-in test User
+            chai.request(server)
+              .post('/api/v1/users/signin')
+              .send(credentials)
+              .end((err, res) => {
+                res.should.have.status(200)
+                res.body.should.be.a('object')
+                res.body.should.have.property('username')
+                res.body.should.have.property('token')
+                res.body.should.have.property('success').be.true
+                done()
+              })
+          })
+      })
+    })
+
+    it('should not POST (sign-in) a User with invalid credentials', (done) => {
+      let user = {
+        username: "tester",
+        password: "prisonbreak",
+        email: "tester@housebot.io"
+      }
+      // First, delete test User if exists
+      User.remove({
+        username: "tester"
+      }, function(err) {
+        // Sign-up test User
+        chai.request(server)
+          .post('/api/v1/users/signup')
+          .send(user)
+          .end((err, res) => {
+            let credentials = {
+              username: "tester",
+              password: "wrongpass"
+            }
+            // Sign-in test User with invalid credentials
+            chai.request(server)
+              .post('/api/v1/users/signin')
+              .send(credentials)
+              .end((err, res) => {
+                res.body.should.be.a('object')
+                res.body.should.have.property('success').be.false
+                done()
+              })
+          })
+      })
+    })
   })
 
 })
