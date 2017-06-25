@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/sotirelisc/housebot-api.svg?branch=master)](https://travis-ci.org/sotirelisc/housebot-api)
+
 ## Overview
 
 **HouseBot** is the updated, 2017 version of Sydomus, a 2014 Android app with house listings either for rent or purchase.
