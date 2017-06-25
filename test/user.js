@@ -1,3 +1,5 @@
+'use strict'
+
 let mongoose = require('mongoose')
 let House = require('../api/models/userModel')
 
