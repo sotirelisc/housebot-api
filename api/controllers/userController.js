@@ -7,21 +7,18 @@ var config = require('../config/database')
 require('../config/passport')(passport)
 var jwt = require('jsonwebtoken')
 
-exports.show_houses = function(req, res) {
-  User.findById(req.params.userId, function(err, user) {
-    if (err) {
-      res.send(err)
-    }
-    res.json(user.houses)
-  })
-}
+// TODO: Refactor methods
 
-exports.show_user = function(req, res) {
+exports.show = function(req, res, what) {
   User.findById(req.params.userId, function(err, user) {
     if (err) {
       res.send(err)
     }
-    res.json(user.username)
+    if (what == "user") {
+      res.send({ username: user.username })
+    } else if (what == "houses") {
+      res.send({ houses: user.houses })
+    }
   })
 }
 

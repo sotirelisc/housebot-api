@@ -13,6 +13,29 @@ chai.use(chaiHttp)
 // Parent block
 describe('Users', () => {
 
+  describe('/GET api/v1/users/userId', () => {
+    it('should GET a User', (done) => {
+      chai.request(server)
+        .get('/api/v1/users/594814d59427e46beb895951')
+        .end((err, res) => {
+          res.should.have.status(200)
+          res.body.should.be.a('object')
+          res.body.should.have.property('username')
+          done()
+        })
+    })
+
+    it('should GET all Houses of User', (done) => {
+      chai.request(server)
+        .get('/api/v1/users/594814d59427e46beb895951/houses')
+        .end((err, res) => {
+          res.should.have.status(200)
+          res.body.should.have.property('houses').be.a('array')
+          done()
+        })
+    })
+  })
+
   describe('/POST api/v1/users', () => {
     it('should POST (sign-up) a User', (done) => {
       let user = {

@@ -11,8 +11,12 @@ module.exports = function(app) {
     .post(user.sign_in_user)
 
   app.route(versioning.url + '/users/:userId')
-    .get(user.show_user)
+    .get((req, res) => {
+      user.show(req, res, "user")
+    })
 
   app.route(versioning.url + '/users/:userId/houses')
-    .get(user.show_houses)
+    .get((req, res) => {
+      user.show(req, res, "houses")
+    })
 }
