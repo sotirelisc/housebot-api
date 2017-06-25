@@ -1,4 +1,4 @@
 module.exports = {
-  'secret': 'thewalkingdead',
-  'database': 'mongodb://housebot:kanieloutis@ds131432.mlab.com:31432/housebot'
+  'secret': proccess.env.PASSPORT_KEY,
+  'database': process.env.MONGO_DB
 }

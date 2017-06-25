@@ -14,7 +14,7 @@ describe('Houses', () => {
    * Test the /GET route
    */
   describe('/GET api/v1/houses', () => {
-    it('it should GET all houses', (done) => {
+    it('should GET all houses', (done) => {
       chai.request(server)
         .get('/api/v1/houses')
         .end((err, res) => {
@@ -26,7 +26,7 @@ describe('Houses', () => {
   })
 
   describe('/POST api/v1/houses', () => {
-    it('it should not POST a house without Authorization', (done) => {
+    it('should not POST a house without Authorization', (done) => {
       let house = {
         short_description: "Up on the mountain",
         long_description: "Nothing like a house not by the sea, but up high on mountain Kerkis.",
