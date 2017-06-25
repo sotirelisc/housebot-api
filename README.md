@@ -23,7 +23,7 @@ Sydomus was built using Parse as its BaaS. HouseBot uses this new, NodeJS & Mong
 
 ```GET``` ```/api/v1/houses``` Get all Houses
 
-```POST``` ```/api/v1/houses``` Create a House
+```POST``` ```/api/v1/houses``` Create a House (requires token of signed-in User as Authorization header)
 
 ```GET``` ```/api/v1/houses/houseId``` Get House info
 
@@ -34,7 +34,21 @@ Sydomus was built using Parse as its BaaS. HouseBot uses this new, NodeJS & Mong
 ## Testing
 
 Currently, test coverage is low, but tests are a priority.
+
 Run tests with ```npm test```
+
+## Running
+
+In order to start the API you need a MongoDB instance with the corresponding URI.
+
+You have to set two env variables (you can also put them in a ```api/config/env.js``` file):
+
+```process.env.MONGO_DB``` URI connecting to your MongoDB database
+
+```process.env.PASSPORT_KEY``` A string of your choice used by Passport for JWT tokens
+
+
+Run ```npm install``` and then ```npm start```
 
 ## Contributing
 
@@ -42,3 +56,7 @@ Run tests with ```npm test```
 - Create a new branch using ```git checkout -b <name>```
 - Push your commit there (ensure tests are green)
 - Create a pull request
+
+## License
+
+HouseBot is released under the [Apache 2.0 License](https://opensource.org/licenses/Apache-2.0).
