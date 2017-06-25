@@ -37,16 +37,17 @@ exports.sign_up_user = function(req, res) {
       password: req.body.password,
       email: req.body.email
     })
-    newUser.save(function(err) {
+    newUser.save(function(err, user) {
       if (err) {
         return res.json({
           success: false,
-          message: 'Username already exists.'
+          message: err
         })
       }
-      res.json({
+      res.status(201).send({
         success: true,
-        message: 'Successfully created new user.'
+        message: 'Successfully created new user.',
+        user: user
       })
     })
   }

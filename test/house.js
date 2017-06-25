@@ -12,7 +12,7 @@ chai.use(chaiHttp)
 describe('Houses', () => {
 
   describe('/GET api/v1/houses', () => {
-    it('should GET all houses', (done) => {
+    it('should GET all Houses', (done) => {
       chai.request(server)
         .get('/api/v1/houses')
         .end((err, res) => {
@@ -24,7 +24,7 @@ describe('Houses', () => {
   })
 
   describe('/GET api/v1/houses/:houseId', () => {
-    it('should GET a house', (done) => {
+    it('should GET a House', (done) => {
       chai.request(server)
         .get('/api/v1/houses/594fdbf2579f162b199576eb')
         .end((err, res) => {
@@ -40,7 +40,7 @@ describe('Houses', () => {
   })
 
   describe('/POST api/v1/houses', () => {
-    it('should not POST a house without Authorization', (done) => {
+    it('should not POST a House without Authorization', (done) => {
       let house = {
         short_description: "Up on the mountain",
         long_description: "Nothing like a house not by the sea, but up high on mountain Kerkis.",
