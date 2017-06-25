@@ -2,4 +2,4 @@
 npm-debug.log
 .DS_Store
 /*.env
-/api/config/env.js
+api/config/env.js
