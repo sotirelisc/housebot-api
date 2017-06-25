@@ -34,6 +34,55 @@ describe('Users', () => {
           })
       })
     })
+
+    it('should not POST (sign-up) a User without credentials', (done) => {
+      let user = {
+        username: "",
+        password: "",
+        email: ""
+      }
+      chai.request(server)
+        .post('/api/v1/users/signup')
+        .send(user)
+        .end((err, res) => {
+          res.body.should.be.a('object')
+          res.body.should.have.property('success').be.false
+          done()
+        })
+    })
+
+    it('should not POST (sign-up) a User with same email', (done) => {
+      let user = {
+        username: "tester",
+        password: "prisonbreak",
+        email: "tester@housebot.io"
+      }
+      let second_user = {
+        username: "demo",
+        password: "prisonbreak",
+        email: "tester@housebot.io"
+      }
+      // First, delete test User if exists
+      User.remove({
+        username: "tester"
+      }, function(err) {
+        // Sign-up default test User
+        chai.request(server)
+          .post('/api/v1/users/signup')
+          .send(user)
+          .end((err, res) => {
+            // Sign-up second User with same email
+            chai.request(server)
+              .post('/api/v1/users/signup')
+              .send(second_user)
+              .end((err, res) => {
+                res.body.should.be.a('object')
+                res.body.should.have.property('success').be.false
+                done()
+              })
+          })
+      })
+    })
   })
 
 })
