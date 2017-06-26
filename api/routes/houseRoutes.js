@@ -1,17 +1,16 @@
 'use strict'
 
-var passport = require('passport')
+let passport = require('passport')
+let house = require('../controllers/houseController')
+let versioning = require('../config/versioning')
 
-module.exports = function(app) {
-  var house = require('../controllers/houseController')
-  var versioning = require('../config/versioning')
-
+module.exports = (app) => {
   app.route(versioning.url + '/houses')
-    .get(house.list_all_houses)
+    .get(house.list_houses)
     .post(passport.authenticate('jwt', {
         session: false
       }),
-      function(req, res) {
+      (req, res) => {
         var token = getToken(req.headers)
         if (token) {
           // User from token is at req.user
@@ -25,9 +24,9 @@ module.exports = function(app) {
       })
 
   app.route(versioning.url + '/houses/:houseId')
-    .get(house.read_a_house)
-    .put(house.update_a_house)
-    .delete(house.delete_a_house)
+    .get(house.show_house)
+    .put(house.update_house)
+    .delete(house.delete_house)
 
   app.route(versioning.url + '/houses/:houseId/owner')
     .get(house.get_owner)
@@ -36,7 +35,7 @@ module.exports = function(app) {
 // JWT approach of getting token from request headers
 const getToken = (headers) => {
   if (headers && headers.authorization) {
-    var parted = headers.authorization.split(' ')
+    let parted = headers.authorization.split(' ')
     if (parted.length === 2) {
       return parted[1]
     } else {

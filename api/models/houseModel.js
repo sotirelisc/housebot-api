@@ -1,10 +1,10 @@
 'use strict'
 
-var mongoose = require('mongoose')
-var Schema = mongoose.Schema
-var User = require('../models/userModel')
+let mongoose = require('mongoose')
+let Schema = mongoose.Schema
+let User = require('../models/userModel')
 
-var HouseSchema = new Schema({
+let HouseSchema = new Schema({
   short_description: {
     type: String
   },
