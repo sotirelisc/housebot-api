@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/sotirelisc/housebot-api.svg?branch=master)](https://travis-ci.org/sotirelisc/housebot-api)
+[![Build Status](https://travis-ci.org/sotirelisc/housebot-api.svg?branch=master)](https://travis-ci.org/sotirelisc/housebot-api) [![Code Climate](https://codeclimate.com/github/sotirelisc/housebot-api/badges/gpa.svg)](https://codeclimate.com/github/sotirelisc/housebot-api)
 
 ## Overview
 
