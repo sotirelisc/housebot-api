@@ -1,9 +1,9 @@
 'use strict'
 
-module.exports = function(app) {
-  var user = require('../controllers/userController')
-  var versioning = require('../config/versioning')
+let user = require('../controllers/userController')
+let versioning = require('../config/versioning')
 
+module.exports = (app) => {
   app.route(versioning.url + '/users/signup')
     .post(user.sign_up_user)
 

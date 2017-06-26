@@ -1,7 +1,7 @@
 'use strict'
 
 let mongoose = require('mongoose')
-let House = require('../api/models/userModel')
+let User = require('../api/models/userModel')
 
 let chai = require('chai')
 let chaiHttp = require('chai-http')
@@ -46,7 +46,7 @@ describe('Users', () => {
       // First, delete test User if exists
       User.remove({
         username: "tester"
-      }, function(err) {
+      }, (err) => {
         chai.request(server)
           .post('/api/v1/users/signup')
           .send(user)
@@ -90,7 +90,7 @@ describe('Users', () => {
       // First, delete test User if exists
       User.remove({
         username: "tester"
-      }, function(err) {
+      }, (err) => {
         // Sign-up default test User
         chai.request(server)
           .post('/api/v1/users/signup')
@@ -123,7 +123,7 @@ describe('Users', () => {
       // First, delete test User if exists
       User.remove({
         username: "tester"
-      }, function(err) {
+      }, (err) => {
         // Sign-up default test User
         chai.request(server)
           .post('/api/v1/users/signup')
@@ -151,7 +151,7 @@ describe('Users', () => {
       // First, delete test User if exists
       User.remove({
         username: "tester"
-      }, function(err) {
+      }, (err) => {
         // Sign-up test User
         chai.request(server)
           .post('/api/v1/users/signup')
@@ -186,7 +186,7 @@ describe('Users', () => {
       // First, delete test User if exists
       User.remove({
         username: "tester"
-      }, function(err) {
+      }, (err) => {
         // Sign-up test User
         chai.request(server)
           .post('/api/v1/users/signup')
