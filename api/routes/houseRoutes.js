@@ -14,7 +14,7 @@ module.exports = (app) => {
         var token = getToken(req.headers)
         if (token) {
           // User from token is at req.user
-          house.create_a_house(req, res)
+          house.create_house(req, res)
         } else {
           return res.status(403).send({
             success: false,

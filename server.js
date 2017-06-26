@@ -7,11 +7,16 @@ let morgan = require('morgan')
 let passport = require('passport')
 let config = require('./api/config/database')
 
-let house_routes = require('./api/routes/houseRoutes')
-let user_routes = require('./api/routes/userRoutes')
-
 mongoose.Promise = global.Promise
 mongoose.connect(config.database)
+
+// Load models
+let House = require('./api/models/houseModel')
+let User = require('./api/models/userModel')
+
+// Load routes
+let house_routes = require('./api/routes/houseRoutes')
+let user_routes = require('./api/routes/userRoutes')
 
 app.use(morgan('combined'))
 

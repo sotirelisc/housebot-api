@@ -68,12 +68,12 @@ exports.update_house = (req, res) => {
 exports.delete_house = (req, res) => {
   House.remove({
     _id: req.params.houseId
-  }, (err, house) => {
+  }, (err) => {
     if (err) {
       res.send(err)
     }
     res.json({
-      message: 'House deleted'
+      message: 'House deleted.'
     })
   })
 }

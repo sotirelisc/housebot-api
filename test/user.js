@@ -13,7 +13,7 @@ chai.use(chaiHttp)
 // Parent block
 describe('Users', () => {
 
-  describe('/GET api/v1/users/userId', () => {
+  describe('/GET api/v1/users/:userId', () => {
     it('should GET a User', (done) => {
       chai.request(server)
         .get('/api/v1/users/594814d59427e46beb895951')
@@ -24,7 +24,9 @@ describe('Users', () => {
           done()
         })
     })
+  })
 
+  describe('/GET api/v1/users/:userId/houses', () => {
     it('should GET all Houses of User', (done) => {
       chai.request(server)
         .get('/api/v1/users/594814d59427e46beb895951/houses')
