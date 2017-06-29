@@ -89,6 +89,52 @@ describe('Users', () => {
     })
   })
 
+  describe('/POST api/v1/watchlist', () => {
+    it('should POST (add) a House to watchlist of current User', (done) => {
+      signUpTestUser(data, (res) => {
+        let credentials = {
+          username: "tester",
+          password: "prisonbreak"
+        }
+        signInTestUser(credentials, (res) => {
+          let token = res.body.token
+          // Delete test House if exists
+          House.remove({
+            short_description: "Up on the mountain (demo)"
+          }, (err) => {
+            // Create new test House
+            let house = {
+              short_description: "Up on the mountain (demo)",
+              long_description: "Nothing like a house not by the sea, but up high on mountain Kerkis.",
+              price: 200
+            }
+            chai.request(server)
+              .post('/api/v1/houses')
+              .send(house)
+              .set('Authorization', token)
+              .end((err, res) => {
+                let data = {
+                  house: res.body._id
+                }
+                // Add House to watchlist
+                chai.request(server)
+                  .post('/api/v1/watchlist')
+                  .send(data)
+                  .set('Authorization', token)
+                  .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.should.be.a('object')
+                    res.body.should.have.property('watchlist').be.a('array')
+                    res.body.should.have.property('success').be.true
+                    done()
+                  })
+              })
+          })
+        })
+      })
+    })
+  })
+
   describe('/POST api/v1/users', () => {
     it('should POST (sign-up) a User', (done) => {
       signUpTestUser(data, (res) => {
@@ -163,6 +209,7 @@ describe('Users', () => {
           password: "wrongpass"
         }
         signInTestUser(credentials, (res) => {
+          res.should.have.status(401)
           res.body.should.be.a('object')
           res.body.should.have.property('success').be.false
           done()

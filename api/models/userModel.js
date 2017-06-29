@@ -26,14 +26,18 @@ let UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  user_type: {
-    type: [{
+  user_type: [{
+    type: {
       type: String,
       enum: ['regular', 'owner']
-    }],
+    },
     default: ['regular']
-  },
+  }],
   houses: [{
+    type: Schema.Types.ObjectId,
+    ref: 'House'
+  }],
+  watchlist: [{
     type: Schema.Types.ObjectId,
     ref: 'House'
   }]

@@ -7,15 +7,34 @@ let config = require('../config/database')
 require('../config/passport')(passport)
 let jwt = require('jsonwebtoken')
 
+exports.add_to_watchlist = (req, res) => {
+  let house = req.body.house
+  User.findById(req.user._id, (err, user) => {
+    if (err) {
+      res.send(err)
+    }
+    user.watchlist.push(house)
+    user.save()
+    res.status(200).json({
+      success: true,
+      watchlist: user.watchlist
+    })
+  })
+}
+
 exports.show = (req, res, what) => {
   User.findById(req.params.userId, (err, user) => {
     if (err) {
       res.send(err)
     }
     if (what === "user") {
-      res.send({ username: user.username })
+      res.send({
+        username: user.username
+      })
     } else if (what === "houses") {
-      res.send({ houses: user.houses })
+      res.send({
+        houses: user.houses
+      })
     }
   })
 }
