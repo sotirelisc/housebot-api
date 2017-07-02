@@ -2,6 +2,7 @@
 // env.js is git ignored
 if (!process.env.PASSPORT_KEY || !process.env.MONGO_DB) {
   let env = require('./env.js')
+    process.env = env;
 }
 
 module.exports = {
