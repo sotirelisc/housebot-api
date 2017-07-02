@@ -8,7 +8,7 @@ let passport = require('passport')
 let config = require('./api/config/database')
 
 mongoose.Promise = global.Promise
-mongoose.connect(config.database)
+mongoose.connect(config.database,{ useMongoClient: true })
 
 // Load models
 let House = require('./api/models/houseModel')
