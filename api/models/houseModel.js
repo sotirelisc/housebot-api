@@ -2,7 +2,6 @@
 
 let mongoose = require('mongoose')
 let Schema = mongoose.Schema
-let User = require('../models/userModel')
 
 let HouseSchema = new Schema({
   short_description: {
@@ -42,7 +41,7 @@ let HouseSchema = new Schema({
   },
   owner: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'Users'
   }
 })
 
