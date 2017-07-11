@@ -93,6 +93,22 @@ describe('Houses', () => {
     })
   })
 
+  describe('/GET api/v1/houses/:houseId/owner', () => {
+    it('should GET the owner (User) of a House', (done) => {
+      createHouse(res => {
+        chai.request(server)
+          .get('/api/v1/houses/' + res.body._id + '/owner')
+          .end((err, res) => {
+            res.should.have.status(200)
+            res.body.should.be.a('object')
+            res.body.should.have.property('username')
+            res.body.should.have.property('house')
+            done()
+          })
+      })
+    })
+  })
+
   describe('/POST api/v1/houses', () => {
     it('should not POST a House without Authorization', (done) => {
       let house = {
