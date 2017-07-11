@@ -12,7 +12,10 @@ exports.get_owner = (req, res) => {
       res.send(err)
       return handleError(err)
     }
-    res.send(house + house.owner.username)
+    res.send({
+      username: house.owner.username,
+      house: house._id
+    })
   })
 }
 
